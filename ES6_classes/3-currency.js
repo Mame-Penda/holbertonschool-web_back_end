@@ -23,6 +23,10 @@ export default class Currency {
     this._name = Currency.checkString(newName, 'name');
   }
 
+  get name() {
+    return this._name;
+  }
+
   displayFullCurrency() {
     return `${this.name} (${this.code})`;
   }
