@@ -12,15 +12,15 @@ export default class Currency {
   }
 
   set code(newCode) {
-    this._code = Currency.checkString(newCode, 'code');
+    this.code = Currency.checkString(newCode, 'code');
   }
 
   get code() {
-    return this._code;
+    return this.code;
   }
 
   set name(newName) {
-    this._name = Currency.checkString(newName, 'name');
+    this.name = Currency.checkString(newName, 'name');
   }
 
   displayFullCurrency() {
