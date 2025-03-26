@@ -1,7 +1,7 @@
 export default class Currency {
   constructor(code, name) {
-    this.code = code;
-    this.name = name;
+    this._code = code;
+    this._name = name;
   }
 
   static checkString(str, propertyName) {
@@ -12,18 +12,18 @@ export default class Currency {
   }
 
   set code(newCode) {
-    this.code = Currency.checkString(newCode, 'code');
+    this._code = Currency.checkString(newCode, 'code');
   }
 
   get code() {
-    return this.code;
+    return this._code;
   }
 
   set name(newName) {
-    this.name = Currency.checkString(newName, 'name');
+    this._name = Currency.checkString(newName, 'name');
   }
 
   displayFullCurrency() {
-    return `${this.name} (${this.code})`;
+    return `${this._name} (${this._code})`;
   }
 }
