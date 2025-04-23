@@ -6,14 +6,14 @@
 from typing import Iterable, List, Sequence, Tuple
 
 
-def element_lenght(Ist: Iterable[Sequence]) -> List[Tuple[str, float]]:
+def element_length(Lst: Iterable[Sequence]) -> List[Tuple[int, float]]:
     """
 
     Args:
-    Ist: Iterable[sequence]
+    Lst: Iterable[sequence]
 
     Returns:
     A list of tuples
     """
 
-    return [(i, len(i)) for i in Ist]
+    return [(i, len(i)) for i in Lst]
