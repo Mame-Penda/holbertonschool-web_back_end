@@ -3,7 +3,7 @@
 """Module provides a function that returns the sum float."""
 
 
-from typing import List
+from typing import List, Union
 
 
 def sum_mixed_list(mxd_list: List[Union[int, float]]) -> float:
