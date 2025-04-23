@@ -1,4 +1,4 @@
-#!/usr/bin/env pyton3
+#!/usr/bin/env python3
 
 """Module that provides a function that returns their sum as a float."""
 
