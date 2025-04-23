@@ -5,7 +5,7 @@
 import math
 
 
-def concat(n: float) -> int:
+def floor(n: float) -> int:
     """
 
     Args:
