@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""execute multiple coroutines at the same time with async"""
+"""execute multiple tasks using task_wait_random"""
 
 import asyncio
 from typing import List
-task_wait_random = __import__('4-tasks').task_wait_random
+task_wait_random = __import__('3-tasks').task_wait_random
 
 
 async def wait_n(n: int, max_delay: int) -> List[float]:
