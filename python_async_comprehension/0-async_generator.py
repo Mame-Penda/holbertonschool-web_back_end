@@ -17,13 +17,5 @@ async def async_generator() -> AsyncGenerator[float, None]:
     float: A random float between 0 and 10
     """
     for _ in range(10):
-        try:
-            await asyncio.sleep(1)
-            yield random.uniform(0, 10)
-
-        except (ValueError, RuntimeError) as e:
-            logger.error(f"An expected error occured: {e}")
-            break
-        except Exception as e:
-            logger.critical(f"Unexpected error: {e}", exc_info=True)
-            raise
+        await asyncio.sleep(1)
+        yield random.uniform(0, 10)
