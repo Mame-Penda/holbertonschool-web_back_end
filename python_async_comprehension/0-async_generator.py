@@ -3,14 +3,10 @@
 
 import asyncio
 import random
-import logging
-from typing import AsyncGenerator
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from typing import Generator
 
 
-async def async_generator() -> AsyncGenerator[float, None]:
+async def async_Generator() -> Generator[float, None, None]:
     """ Coroutine that yields 10 random float numbers
     between 0 and 10, with 1-seconde pause between each.
     Yields:
