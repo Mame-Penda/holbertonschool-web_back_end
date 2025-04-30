@@ -6,7 +6,8 @@ from typing import List, Tuple
 
 
 def index_range(page: int, page_size: int) -> Tuple[int]:
-    """Return a tuple of size two containing a start index"""
+    """Return a tuple of size two containing a start index and an end index
+     corresponding to the range of indexes to return in a list"""
     end_index = page * page_size
     start_index = end_index - page_size
     return (start_index, end_index)
@@ -27,7 +28,7 @@ class Server:
                 dataset = [row for row in reader]
                 self.__dataset = dataset[1:]
 
-                return self.__dataset
+        return self.__dataset
 
     def get_page(self, page: int = 1,  page_size: int = 10) -> List[List]:
         """Return a list of data for the page"""
