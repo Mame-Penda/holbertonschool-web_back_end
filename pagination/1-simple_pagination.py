@@ -5,7 +5,7 @@ import math
 from typing import List, Tuple
 
 
-def index_range(page: int, page_size: int) -> Tuple[int]:
+def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """Return a tuple of size two containing a start index and an end index
      corresponding to the range of indexes to return in a list"""
     end_index = page * page_size
@@ -18,7 +18,7 @@ class Server:
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
-        self.__dataset = None
+        self.__dataset: List[List] = []
 
     def dataset(self) -> List[List]:
         """cached dataset"""
