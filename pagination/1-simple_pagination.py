@@ -16,6 +16,9 @@ class Server:
     """Server class to paginate a database of popular"""
     DATA_FILE = "Popular_Baby_Names.csv"
 
+    def __init__(self):
+        self.__dataset = None
+
     def dataset(self) -> List[List]:
         """cached dataset"""
         if self.__dataset is None:
