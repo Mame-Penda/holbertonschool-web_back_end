@@ -31,7 +31,7 @@ class Server:
             self.__indexed_dataset = {
                 i: dataset[i] for i in range(len(dataset))
             }
-            return self.__indexed_dataset
+        return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """Return a dict of data for the page"""
@@ -44,7 +44,7 @@ class Server:
                 data.append(indexed_dataset[next_index])
                 next_index += 1
 
-                return {
+            return {
                     'index': index,
                     'data': data,
                     'page_size': page_size,
