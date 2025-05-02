@@ -9,7 +9,7 @@ def log_stats():
     db = client.logs
     collection = db.nginx
 
-    logs_qty = collection.count_document({})
+    logs_qty = collection.count_documents({})
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     status_check = collection.count_documents({
         "method": "GET",
