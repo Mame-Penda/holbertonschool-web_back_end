@@ -9,7 +9,7 @@ async function countStudents(path) {
     rows.forEach((row) => {
       const columns = row.split(',');
       const [firstname, , , field] = columns;
-      if (firstname && field){
+      if (firstname && field) {
         if (!fields[field]) {
             fields[field] = [];
       }
