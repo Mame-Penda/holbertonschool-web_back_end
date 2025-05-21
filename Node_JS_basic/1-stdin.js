@@ -1,9 +1,9 @@
 console.log('Welcome to Holberton School, what is your name?\n');
 
 process.stdin.on('readable', () => {
-    const word = process.stdin.read();  // ✅ Correction ici
+    const word = process.stdin.read();
     if (word) {
-        console.log(`Your name is: ${word.toString().trim()}`); // Ajoute .trim() pour retirer le retour à la ligne
+        console.log(`Your name is: ${word.toString().trim()}`);
     }
 });
 
