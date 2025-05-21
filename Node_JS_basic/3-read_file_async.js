@@ -1,4 +1,4 @@
-const fs = require('fs').promises;
+const fs = require('fs').romises;
 
 async function countStudents(path) {
   try {
