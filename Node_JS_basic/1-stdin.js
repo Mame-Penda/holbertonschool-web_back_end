@@ -1,9 +1,9 @@
 console.log('Welcome to Holberton School, what is your name?\n');
 
 process.stdin.on('readable', () => {
-    const name = std.stdin.read();
-    if (name) {
-        process.stdout.write(`Your name is: ${name.toString()}`);
+    const word = std.stdin.read();
+    if (word) {
+        process.stdout.write(`Your name is: ${word.toString()}`);
     }
 });
 
