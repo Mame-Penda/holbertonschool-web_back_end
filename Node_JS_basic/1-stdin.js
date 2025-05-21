@@ -1,5 +1,6 @@
 const std = require('process');
 
+
 std.stdout.write('Welcome to Holberton School, what is your name?\n');
 std.stdin.on('readable', () => {
     const name = std.stdin.read();
