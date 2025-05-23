@@ -1,44 +1,59 @@
 const express = require('express');
-const countStudents = require('./3-read_file_async');
-const fs = require('fs');
-
+const fs = require('fs').promises;
 
 const app = express();
 const port = 1245;
-const database = process.argv[2];
+const db = process.argv[2];
+
+async function countStudents(path) {
+  try {
+    const data = await fs.readFile(path, 'utf8');
+    const rows = data.trim().split('\n').slice(1);
+    const fields = {};
+
+    rows.forEach((row) => {
+      const columns = row.split(',');
+      const [firstname, , , field] = columns;
+      if (firstname && field) {
+        if (!fields[field]) {
+          fields[field] = [];
+        }
+        fields[field].push(firstname);
+      }
+    });
+
+    let output = `Number of students: ${rows.length}`;
+    for (const [field, students] of Object.entries(fields)) {
+      output += `\nNumber of students in ${field}: ${students.length}. List: ${students.join(', ')}`;
+    }
+    return output;
+  } catch (err) {
+    throw new Error('Cannot load the database');
+  }
+}
 
 app.get('/', (req, res) => {
-    res.send('Hello Holberton School!');
+  res.send('Hello Holberton School!');
 });
 
 app.get('/students', async (req, res) => {
-    let response = 'This is the list of our students\n';
-    try {
-        const data = await fs.promises.readFile(database, 'utf-8');
-        const lines = data.trim().split('\n').filter(line => line !== '');
-        const students = lines.slice(1);
-
-        response += `Number of students: ${students.length}\n`;
-        const fields = {};
-
-        students.forEach((line) => {
-            const [firstname, , , field] = line.split(',');
-
-            if (!fields[field]) {
-                fields[field] = [];
-            }
-            fields[field].push(firstname);
-        });
-        for (const [field, names] of Object.entries(fields)) {
-            response += `Number of students in ${field}: ${names.length}. List: ${names.join(', ')}\n`;
-        }
-        res.set('Content-Type', 'text/plain');
-        res.send(response.trim());
-    } catch (err) {
-        res.status(500).send('Cannot load the database');
-    }
+  res.set('Content-Type', 'text/plain;charset=utf-8');
+  try {
+    const students = await countStudents(db);
+    const output = `This is the list of our students\n${students}`;
+    res.send(output);
+  } catch (error) {
+    res.send(error.message);
+  }
 });
 
-app.listen(port);
+// Optionnel : pour gérer les routes non définies
+app.use((req, res) => {
+  res.status(404).send('Not Found');
+});
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
 
 module.exports = app;

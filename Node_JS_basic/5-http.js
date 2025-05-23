@@ -13,14 +13,14 @@ async function countStudents(path) {
         rows.forEach((row) => {
             const columns = row.split(',');
             const [firstname, , , field] = columns;
-            if (field && field) {
+            if (firstname && field) {
                 if (!fields[field]) {
                     fields[field] = [];
                 }
                 fields[field].push(firstname);
             }
         });
-        
+
         let output = `Number of students: ${rows.length}`;
         for (const [field, students] of Object.entries(fields)) {
             output += `\nNumber of students in ${field}: ${students.length}. List: ${students.join(', ')}`;
@@ -36,17 +36,17 @@ const app = http.createServer(async (req, res) => {
     const { url } = req;
 
     if (url === '/') {
-        res.write('Hello Holberton School!');
+        res.end('Hello Holberton School!');
     } else if (url === '/students') {
-        res.write('This is the list of our students\n');
         try {
-          const data = await countStudents(db);
-          res.end(`This is the list of our students\n${data}`);
+            const data = await countStudents(db);
+            res.end(`This is the list of our students\n${data}`);
         } catch (error) {
-            res.end(error.message);
+            res.end(`This is the list of our students\n${error.message}`);
         }
+    } else {
+        res.end('Not found');
     }
-    res.end();
 });
 
 app.listen(port, () => {
