@@ -5,7 +5,7 @@ const db = process.argv.slice(2)[0];
 const port = 1245;
 
 async function countStudents(path) {
-    try{
+    try {
         const data = await fs.readFile(path, 'utf8');
         const rows = data.trim().split('\n').slice(1);
         const fields = {};
@@ -37,11 +37,11 @@ const app = http.createServer(async (req, res) => {
 
     if (url === '/') {
         res.write('Hello Holberton School!');
-    }else if (url === '/students') {
+    } else if (url === '/students') {
         res.write('This is the list of our students\n');
         try {
-            const data = await countStudents(db);
-            res.end(`This is the list of our students\n${data}`);
+          const data = await countStudents(db);
+          res.end(`This is the list of our students\n${data}`);
         } catch (error) {
             res.end(error.message);
         }
