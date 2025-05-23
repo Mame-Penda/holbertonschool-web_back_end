@@ -1,28 +1,36 @@
-import fs from 'fs';
+import fs from 'fs/promises';
 
-const readDatabase = (path) => new Promise((resolve, reject) => {
-    fs.readFile(path, 'utf-8', (err, data) => {
-        if (err) {
-            reject(new Error('Cannot load the database'));
-        } else {
-            const lines = data.trim().split('\n');
-            const students = {};
-            const fields = lines[0].split(',');
-            const fieldIndex = fields.indexOf('field');
-            const nameIndex = fields.indexOf('firstname');
+export default async function readDatabase(filePath) {
+  if (!filePath) {
+    throw new Error('Cannot load the database');
+  }
 
-            lines.slice(1).forEach((line) => {
-                const parts = line.split(',');
-                const field = parts[fieldIndex];
-                const name = parts[nameIndex];
+  try {
+    const data = await fs.readFile(filePath, 'utf8');
+    const rows = data.trim().split('\n');
 
-                if (!students[field]) students[field] = [];
-                students[field].push(name);
-            });
-            
-            resolve(students);
+    if (rows.length <= 1) {
+      return {};
+    }
+
+    const fields = {};
+    rows.shift();
+
+    for (const row of rows) {
+      const trimmedRow = row.trim();
+
+      if (trimmedRow !== '') {
+        const [firstName, , , field] = trimmedRow.split(',');
+
+        if (!fields[field]) {
+          fields[field] = [];
         }
-    });
-});
+        fields[field].push(firstName);
+      }
+    }
 
-export default readDatabase;
+    return fields;
+  } catch (error) {
+    throw new Error('Cannot load the database');
+  }
+}
