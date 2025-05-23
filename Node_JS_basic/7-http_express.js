@@ -3,7 +3,7 @@ const fs = require('fs').promises;
 
 const app = express();
 const port = 1245;
-const db = process.argv[2];
+const db = process.argv.slice(2)[0];
 
 async function countStudents(path) {
   try {
@@ -18,8 +18,8 @@ async function countStudents(path) {
         if (!fields[field]) {
           fields[field] = [];
         }
-        fields[field].push(firstname);
       }
+      fields[field].push(firstname);
     });
 
     let output = `Number of students: ${rows.length}`;
@@ -38,18 +38,13 @@ app.get('/', (req, res) => {
 
 app.get('/students', async (req, res) => {
   res.set('Content-Type', 'text/plain;charset=utf-8');
+  res.write('This is the list of our students\n');
   try {
     const students = await countStudents(db);
-    const output = `This is the list of our students\n${students}`;
-    res.send(output);
+    res.end(students);
   } catch (error) {
-    res.send(error.message);
+    res.end(error.message);
   }
-});
-
-// Optionnel : pour gérer les routes non définies
-app.use((req, res) => {
-  res.status(404).send('Not Found');
 });
 
 app.listen(port, () => {
