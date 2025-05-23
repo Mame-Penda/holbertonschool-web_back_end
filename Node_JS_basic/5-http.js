@@ -17,19 +17,19 @@ async function countStudents(path) {
                 if (!fields[field]) {
                     fields[field] = [];
                 }
+                fields[field].push(firstname);
             }
-            fields[field].push(firstname);
-            });
-
-            let output = `Number of students: ${rows.length}`;
-            for (const [field, students] of Object.entries(fields)) {
-                output += `\nNumber of students in ${field}: ${students.length}. List: ${students.join(', ')}`;
-            }
-            return output;
-        } catch (err) {
-            throw new Error('Cannot load the database');
+        });
+        
+        let output = `Number of students: ${rows.length}`;
+        for (const [field, students] of Object.entries(fields)) {
+            output += `\nNumber of students in ${field}: ${students.length}. List: ${students.join(', ')}`;
         }
+        return output;
+    } catch (err) {
+        throw new Error('Cannot load the database');
     }
+}
 
 const app = http.createServer(async (req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
