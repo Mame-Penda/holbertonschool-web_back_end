@@ -13,7 +13,7 @@ async function countStudents(path) {
         rows.forEach((row) => {
             const columns = row.split(',');
             const [firstname, , , field] = columns;
-            if (firstname && field) {
+            if (field && field) {
                 if (!fields[field]) {
                     fields[field] = [];
                 }
@@ -41,7 +41,7 @@ const app = http.createServer(async (req, res) => {
         res.write('This is the list of our students\n');
         try {
             const data = await countStudents(db);
-            res.end(students);
+            res.end(`This is the list of our students\n${data}`);
         } catch (error) {
             res.end(error.message);
         }
