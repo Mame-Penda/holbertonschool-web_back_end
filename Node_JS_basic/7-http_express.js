@@ -13,7 +13,6 @@ app.get('/', (req, res) => {
 
 app.get('/students', async (req, res) => {
     let response = 'This is the list of our students\n';
-
     try {
         const data = await fs.promises.readFile(database, 'utf-8');
         const lines = data.trim().split('\n').filter(line => line !== '');
@@ -41,4 +40,5 @@ app.get('/students', async (req, res) => {
 });
 
 app.listen(port);
+
 module.exports = app;
